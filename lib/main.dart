@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_provider/provider/count_provider.dart';
 import 'package:flutter_provider/provider/example_one_provider.dart';
 import 'package:flutter_provider/provider/favourite_provider.dart';
+import 'package:flutter_provider/provider/theme_changer_provider.dart';
 import 'package:flutter_provider/screens/count_example.dart';
+import 'package:flutter_provider/screens/darktheme.dart';
 import 'package:flutter_provider/screens/example_one.dart';
 import 'package:flutter_provider/screens/favourite/favouritescreen.dart';
 import 'package:provider/provider.dart';
@@ -18,19 +20,26 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
-      providers: [
-        ChangeNotifierProvider(create: (_) => CountProvider()),
-        ChangeNotifierProvider(create: (_) => ExampleOneProvider()),
-        ChangeNotifierProvider(create: (_) => FavouriteItemProvider())
-      ],
-      child: MaterialApp(
-        title: 'Flutter Demo',
-        theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-          useMaterial3: true,
-        ),
-        home: const Favouritescreen(),
-      ),
-    );
+        providers: [
+          ChangeNotifierProvider(create: (_) => CountProvider()),
+          ChangeNotifierProvider(create: (_) => ExampleOneProvider()),
+          ChangeNotifierProvider(create: (_) => FavouriteItemProvider()),
+          ChangeNotifierProvider(create: (_) => ThemeChanger())
+        ],
+        child: Builder(builder: (BuildContext context) {
+          final themeChanger = Provider.of<ThemeChanger>(context);
+          return MaterialApp(
+            title: 'Flutter Demo',
+            themeMode: themeChanger.themeMode,
+            theme: ThemeData(
+                brightness: Brightness.light,
+                primarySwatch: Colors.teal,
+                appBarTheme: AppBarTheme(backgroundColor: Colors.orange)),
+            darkTheme: ThemeData(
+                brightness: Brightness.dark,
+                appBarTheme: AppBarTheme(backgroundColor: Colors.teal)),
+            home: const DarkThemeScreen(),
+          );
+        }));
   }
 }
