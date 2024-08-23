@@ -7,6 +7,7 @@ import 'package:flutter_provider/screens/count_example.dart';
 import 'package:flutter_provider/screens/darktheme.dart';
 import 'package:flutter_provider/screens/example_one.dart';
 import 'package:flutter_provider/screens/favourite/favouritescreen.dart';
+import 'package:flutter_provider/screens/value_notify_listner.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -38,7 +39,7 @@ class MyApp extends StatelessWidget {
             darkTheme: ThemeData(
                 brightness: Brightness.dark,
                 appBarTheme: AppBarTheme(backgroundColor: Colors.teal)),
-            home: const DarkThemeScreen(),
+            home: NotifyListenerScreen(),
           );
         }));
   }
